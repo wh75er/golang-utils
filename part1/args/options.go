@@ -4,7 +4,6 @@ import (
 	"errors"
 )
 
-
 type Options struct {
 	skipFields int
 	skipChars int
