@@ -13,3 +13,13 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+#
+
+.gradle
+.idea/
+!.idea/icon*.png
+*.iml
+build/
+src/main/gen
+src/main/resources/templates.list
+src/main/resources/gitignore/*
