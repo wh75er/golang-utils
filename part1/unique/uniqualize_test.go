@@ -6,7 +6,7 @@ import (
 	"uniq/args"
 )
 
-func testStandardBehaviour(t *testing.T) {
+func TestDefaultBehaviour(t *testing.T) {
 	opts := args.NewOptions().Build()
 
 	dataInput := []string {
@@ -23,7 +23,7 @@ func testStandardBehaviour(t *testing.T) {
 
 	expected := []string {
 		"I love music.",
-		"f",
+		"",
 		"I love music of Kartik.",
 		"Thanks.",
 		"I love music of Kartik.",
