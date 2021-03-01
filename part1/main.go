@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
+	"strings"
 	"uniq/args"
 	"uniq/iop"
+	"uniq/unique"
 )
 
 const usage = "Usage: uniq [-c | -d | -u] [-i] [-f num] [-s chars] [input_file [output_file]]"
@@ -27,4 +29,12 @@ func main() {
 	if e != nil {
 		log.Fatal(e)
 	}
+
+	data, e = unique.Uniqualize(data, opts)
+
+	if e != nil {
+		log.Fatal(e)
+	}
+
+	fmt.Println("Result:\n", strings.Join(data, "\n"))
 }

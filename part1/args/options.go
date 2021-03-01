@@ -5,17 +5,17 @@ import (
 )
 
 type Options struct {
-	skipFields int
-	skipChars int
-	count bool
-	repeated bool
-	unique bool
-	ignoreCase bool
+	SkipFields int
+	SkipChars int
+	Count bool
+	Repeated bool
+	Unique bool
+	IgnoreCase bool
 }
 
 func (o Options) IsValid() error {
 	var conflictCount byte
-	for _, v := range []bool{o.repeated, o.unique, o.count} {
+	for _, v := range []bool{o.Repeated, o.Unique, o.Count} {
 		if v {
 			conflictCount++
 		}
