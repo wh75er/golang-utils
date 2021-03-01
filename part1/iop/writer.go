@@ -11,8 +11,7 @@ func WriteInput(data []string, opts args.IoOptions) (error){
 	outStream := os.Stdout
 
 	if opts.OutFilename != "" {
-        fmt.Println("out stream is ", opts.OutFilename)
-		f, e := os.OpenFile(opts.OutFilename, os.O_CREATE | os.O_WRONLY, os.FileMode(0644))
+		f, e := os.OpenFile(opts.OutFilename, os.O_CREATE | os.O_WRONLY | os.O_TRUNC, os.FileMode(0644))
 
 		if e != nil {
 			return e
@@ -26,7 +25,7 @@ func WriteInput(data []string, opts args.IoOptions) (error){
 
 	w := bufio.NewWriter(outStream)
 
-    for _, v := range data {
+	for _, v := range data {
         fmt.Fprintln(w, v)
     }
     w.Flush()
