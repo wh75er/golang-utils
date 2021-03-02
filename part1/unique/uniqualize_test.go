@@ -307,3 +307,34 @@ func TestEmptyInputDataBehaviour(t *testing.T) {
 		t.Fatalf("Check failed. Got: %s\nexpected:%s", output, expected)
 	}
 }
+
+func TestSkipFieldsSkipCharsBehaviour(t *testing.T) {
+	opts := args.NewOptions().SkipFields(2).SkipChars(1).Build()
+
+	dataInput := []string{
+		"I love music.",
+		"A love gusic.",
+		"C love Tusic.",
+		"",
+		"I love husic of Kartik.",
+		"We love Xusic of Kartik.",
+		"Thanks.",
+	}
+
+	expected := []string{
+		"I love music.",
+		"",
+		"I love husic of Kartik.",
+		"Thanks.",
+	}
+
+	output, e := Uniqualize(dataInput, opts)
+
+	if e != nil {
+		t.Fatalf("Unitity failed with error %s", e)
+	}
+
+	if !reflect.DeepEqual(output, expected) {
+		t.Fatalf("Check failed. Got: %s\nexpected:%s", output, expected)
+	}
+}
