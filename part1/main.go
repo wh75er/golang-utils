@@ -1,9 +1,7 @@
 package main
 
 import (
-	//	"fmt"
 	"log"
-	//	"strings"
 	"uniq/args"
 	"uniq/iop"
 	"uniq/unique"
@@ -35,8 +33,6 @@ func main() {
 	if e != nil {
 		log.Fatal(e)
 	}
-
-//	fmt.Println("last element:<", data[len(data) - 1], ">")
 
     e  = iop.WriteInput(data, iopts)
 
