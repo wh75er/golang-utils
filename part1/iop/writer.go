@@ -7,7 +7,7 @@ import (
 	"uniq/args"
 )
 
-func WriteInput(data []string, opts args.IoOptions) (error){
+func WriteInput(data []string, opts args.IoOptions) error {
 	outStream := os.Stdout
 
 	if opts.OutFilename != "" {
