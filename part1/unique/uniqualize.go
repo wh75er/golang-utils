@@ -107,12 +107,12 @@ func modifyString(s string, fields int, chars int, ignoreCase bool) string {
 func Uniqualize(data []string, opts args.Options) ([]string, error) {
 	var result []string
 
-	if len(data) == 0 {
-		return result, errors.New("input is empty")
-	}
-
 	if e := opts.IsValid(); e != nil {
 		return result, e
+	}
+
+	if len(data) == 0 {
+		return result, nil
 	}
 
 	var lines []line
