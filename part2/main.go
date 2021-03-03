@@ -1,8 +1,8 @@
 package main
 
 import (
+	"calc/calculator"
 	"calc/iop"
-	"fmt"
 	"log"
 	"os"
 )
@@ -14,7 +14,7 @@ func main() {
 		log.Fatal(e)
 	}
 
-	fmt.Println("Your string is: ", s)
+	calculator.Calculate(s)
 
 	s = "You string is: " + s
 
