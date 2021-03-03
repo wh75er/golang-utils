@@ -34,9 +34,9 @@ func main() {
 		log.Fatal(e)
 	}
 
-    e  = iop.WriteInput(data, iopts)
+	e  = iop.WriteInput(data, iopts)
 
-    if e != nil {
-        log.Fatal(e)
-    }
+	if e != nil {
+		log.Fatal(e)
+	}
 }
