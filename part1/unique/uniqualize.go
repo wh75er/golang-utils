@@ -137,16 +137,16 @@ func Uniqualize(data []string, opts args.Options) ([]string, error) {
 		result = Map(func (l line) string {
 			return strings.Join([]string{strconv.Itoa(l.count + 1), l.msg}, " ")
 		}, lines)
-    case repeatedMode, uniqueMode:
+	case repeatedMode, uniqueMode:
 		var e error = nil
 		result, e = merge(lines, mode)
 		if e != nil {
 			return result, e
 		}
-    default:
-        result = Map(func (l line) string {
-            return l.msg
-        }, lines)
+	default:
+		result = Map(func (l line) string {
+			return l.msg
+		}, lines)
 	}
 
 	return result, nil

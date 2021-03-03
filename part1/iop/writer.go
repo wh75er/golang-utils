@@ -1,8 +1,8 @@
 package iop
 
 import (
-    "fmt"
 	"bufio"
+	"fmt"
 	"os"
 	"uniq/args"
 )
@@ -26,9 +26,9 @@ func WriteInput(data []string, opts args.IoOptions) error {
 	w := bufio.NewWriter(outStream)
 
 	for _, v := range data {
-        fmt.Fprintln(w, v)
-    }
-    w.Flush()
+		fmt.Fprintln(w, v)
+	}
+	w.Flush()
 
 	return nil
 }

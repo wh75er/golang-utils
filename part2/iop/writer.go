@@ -9,5 +9,5 @@ import (
 func WriteInput(s string, out io.Writer) {
 	w := bufio.NewWriter(out)
 	fmt.Fprintln(w, s)
-    w.Flush()
+	w.Flush()
 }
