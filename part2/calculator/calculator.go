@@ -2,7 +2,7 @@ package calculator
 
 import (
 	"errors"
-	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -81,8 +81,8 @@ func getPolishNotation(s string) ([]string, error) {
 
 					opPriority := getOpPriority()
 
-					if opPriority[h] >= opPriority[c] {
-						pn = append(pn, string(h))
+					if opPriority[h.(int32)] >= opPriority[c] {
+						pn = append(pn, string(h.(int32)))
 						stack.Pop()
 					}
 
@@ -99,11 +99,11 @@ func getPolishNotation(s string) ([]string, error) {
 					h := stack.Top()
 					stack.Pop()
 
-					if getBracketInfo(h) == lBracket {
+					if getBracketInfo(h.(int32)) == lBracket {
 						break
 					}
 
-					pn = append(pn, string(h))
+					pn = append(pn, string(h.(int32)))
 				}
 			}
 		case c == '\n':
@@ -118,7 +118,7 @@ func getPolishNotation(s string) ([]string, error) {
 
 				h := stack.Top()
 
-				pn = append(pn, string(h))
+				pn = append(pn, string(h.(int32)))
 
 				stack.Pop()
 			}
@@ -131,14 +131,72 @@ func getPolishNotation(s string) ([]string, error) {
 	return pn, nil
 }
 
+func getStackValue(st *IStack) (v float64, e error) {
+	if (*st).Length() == 0 {
+		return 0, errors.New("invalid order of operations")
+	}
+
+	v = (*st).Top().(float64)
+	(*st).Pop()
+
+	return
+}
+
 func Calculate(s string) (float64, error) {
+	var result float64 = 0
+
 	pn, e := getPolishNotation(s)
 
 	if e != nil {
-		return 0, e
+		return result, errors.New("polish notation conversion failure")
 	}
 
-	fmt.Println("Polish notation: ", pn)
+	stack := NewStack()
 
-	return 0, nil
+	for _, v := range pn {
+		c := int32(v[0])
+		switch {
+		case isNumber(c):
+			num, e := strconv.Atoi(v)
+
+			if e != nil {
+				return result, errors.New("invalid number")
+			}
+
+			stack.Push(float64(num))
+		case isOperator(c):
+			arg2, e := getStackValue(&stack)
+
+			if e != nil {
+				return result, errors.New("invalid order of operations")
+			}
+
+			arg1, e := getStackValue(&stack)
+
+			if e != nil {
+				return result, errors.New("invalid order of operations")
+			}
+
+			switch c {
+			case '+':
+				stack.Push(arg1 + arg2)
+			case '-':
+				stack.Push(arg1 - arg2)
+			case '/':
+				stack.Push(arg1 / arg2)
+			case '*':
+				stack.Push(arg1 * arg2)
+			}
+		default:
+			return result, errors.New("unknown character occurred")
+		}
+	}
+
+	if stack.Length() == 0 {
+		return result, errors.New("result not found")
+	}
+
+	result = stack.Top().(float64)
+
+	return result, nil
 }

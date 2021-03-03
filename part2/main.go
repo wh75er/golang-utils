@@ -5,6 +5,7 @@ import (
 	"calc/iop"
 	"log"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -14,9 +15,11 @@ func main() {
 		log.Fatal(e)
 	}
 
-	calculator.Calculate(s)
+	result, e := calculator.Calculate(s)
 
-	s = "You string is: " + s
+	if e != nil {
+		log.Fatal(e)
+	}
 
-	iop.WriteInput(s, os.Stdout)
+	iop.WriteInput(strconv.FormatFloat(result, 'f', 6, 64), os.Stdout)
 }

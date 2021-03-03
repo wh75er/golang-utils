@@ -1,12 +1,12 @@
 package calculator
 
 type Stack struct {
-	data []int32
+	data []interface{}
 }
 
 type IStack interface {
-	Push(s int32)
-	Top() int32
+	Push(s interface{})
+	Top() interface{}
 	Pop()
 	Length() int
 }
@@ -15,11 +15,11 @@ func NewStack() IStack {
 	return &Stack{}
 }
 
-func (st *Stack) Push(s int32) {
+func (st *Stack) Push(s interface{}) {
 	st.data = append(st.data, s)
 }
 
-func (st *Stack) Top() int32 {
+func (st *Stack) Top() interface{} {
 	if len(st.data) == 0 {
 		return -1
 	}
