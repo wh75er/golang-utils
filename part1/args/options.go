@@ -1,8 +1,6 @@
 package args
 
-import (
-	"errors"
-)
+import "errors"
 
 type Options struct {
 	SkipFields int
@@ -18,11 +16,11 @@ func (o Options) IsValid() error {
 	for _, v := range []bool{o.Repeated, o.Unique, o.Count} {
 		if v {
 			conflictCount++
-		}
-	}
 
-	if conflictCount > 1 {
-		return errors.New("conflicting options")
+			if conflictCount > 1 {
+				return errors.New("conflicting options")
+			}
+		}
 	}
 
 	return nil
