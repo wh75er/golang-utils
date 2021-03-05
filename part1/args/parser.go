@@ -56,7 +56,7 @@ func ParseArgs() (Options, IoOptions, error) {
 		iopts.InFilename = args[0]
 		iopts.OutFilename = args[1]
 	default:
-		e = errors.New("too many arguments")
+		return opts, iopts, errors.New("too many arguments")
 	}
 
 	return opts, iopts, e

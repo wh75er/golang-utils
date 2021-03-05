@@ -1,7 +1,8 @@
 package main
 
 import (
-	"log"
+	"fmt"
+	"os"
 	"uniq/args"
 	"uniq/iop"
 	"uniq/unique"
@@ -12,26 +13,31 @@ const usage = "Usage: uniq [-c | -d | -u] [-i] [-f num] [-s chars] [input_file [
 func main() {
 	opts, iopts, e := args.ParseArgs()
 	if e != nil {
-		log.Fatal(e, "\n", usage)
+		fmt.Println(e)
+		os.Exit(1)
 	}
 
 	e = opts.IsValid()
 	if e != nil {
-		log.Fatal(e, "\n", usage)
+		fmt.Println(e)
+		os.Exit(1)
 	}
 
 	data, e := iop.ReadInput(iopts)
 	if e != nil {
-		log.Fatal(e)
+		fmt.Println(e)
+		os.Exit(1)
 	}
 
 	data, e = unique.Uniqualize(data, opts)
 	if e != nil {
-		log.Fatal(e)
+		fmt.Println(e)
+		os.Exit(1)
 	}
 
 	e = iop.WriteInput(data, iopts)
 	if e != nil {
-		log.Fatal(e)
+		fmt.Println(e)
+		os.Exit(1)
 	}
 }
