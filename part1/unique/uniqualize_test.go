@@ -9,7 +9,7 @@ import (
 func TestDefaultBehaviour(t *testing.T) {
 	opts := args.NewOptions().Build()
 
-	dataInput := []string {
+	dataInput := []string{
 		"I love music.",
 		"I love music.",
 		"I love music.",
@@ -21,7 +21,7 @@ func TestDefaultBehaviour(t *testing.T) {
 		"I love music of Kartik.",
 	}
 
-	expected := []string {
+	expected := []string{
 		"I love music.",
 		"",
 		"I love music of Kartik.",
@@ -43,7 +43,7 @@ func TestDefaultBehaviour(t *testing.T) {
 func TestCountBehaviour(t *testing.T) {
 	opts := args.NewOptions().Count().Build()
 
-	dataInput := []string {
+	dataInput := []string{
 		"I love music.",
 		"I love music.",
 		"I love music.",
@@ -55,7 +55,7 @@ func TestCountBehaviour(t *testing.T) {
 		"I love music of Kartik.",
 	}
 
-	expected := []string {
+	expected := []string{
 		"3 I love music.",
 		"1 ",
 		"2 I love music of Kartik.",
@@ -77,7 +77,7 @@ func TestCountBehaviour(t *testing.T) {
 func TestRepeatedBehaviour(t *testing.T) {
 	opts := args.NewOptions().Repeated().Build()
 
-	dataInput := []string {
+	dataInput := []string{
 		"I love music.",
 		"I love music.",
 		"I love music.",
@@ -89,7 +89,7 @@ func TestRepeatedBehaviour(t *testing.T) {
 		"I love music of Kartik.",
 	}
 
-	expected := []string {
+	expected := []string{
 		"I love music.",
 		"I love music of Kartik.",
 		"I love music of Kartik.",

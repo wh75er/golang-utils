@@ -15,7 +15,7 @@ const (
 )
 
 type line struct {
-	msg string
+	msg   string
 	count int
 }
 
@@ -62,14 +62,14 @@ func merge(l []line, m int) ([]string, error) {
 
 	switch m {
 	case uniqueMode:
-		lm = Filter(func (v line) bool {
+		lm = Filter(func(v line) bool {
 			if v.count == 0 {
 				return true
 			}
 			return false
 		}, l)
 	case repeatedMode:
-		lm = Filter(func (v line) bool {
+		lm = Filter(func(v line) bool {
 			if v.count != 0 {
 				return true
 			}
@@ -123,7 +123,7 @@ func Uniqualize(data []string, opts args.Options) ([]string, error) {
 	for _, v := range data[1:] {
 		currLine := modifyString(v, opts.SkipFields, opts.SkipChars, opts.IgnoreCase)
 		if lastLine == currLine {
-			lines[len(lines) - 1].count++
+			lines[len(lines)-1].count++
 		} else {
 			lines = append(lines, line{v, 0})
 			lastLine = currLine
@@ -134,7 +134,7 @@ func Uniqualize(data []string, opts args.Options) ([]string, error) {
 
 	switch mode {
 	case countMode:
-		result = Map(func (l line) string {
+		result = Map(func(l line) string {
 			return strings.Join([]string{strconv.Itoa(l.count + 1), l.msg}, " ")
 		}, lines)
 	case repeatedMode, uniqueMode:
@@ -144,7 +144,7 @@ func Uniqualize(data []string, opts args.Options) ([]string, error) {
 			return result, e
 		}
 	default:
-		result = Map(func (l line) string {
+		result = Map(func(l line) string {
 			return l.msg
 		}, lines)
 	}

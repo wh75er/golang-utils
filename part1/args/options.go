@@ -4,10 +4,10 @@ import "errors"
 
 type Options struct {
 	SkipFields int
-	SkipChars int
-	Count bool
-	Repeated bool
-	Unique bool
+	SkipChars  int
+	Count      bool
+	Repeated   bool
+	Unique     bool
 	IgnoreCase bool
 }
 
@@ -79,10 +79,10 @@ func (o *optionBuilder) Build() Options {
 
 type optionBuilder struct {
 	skipFields int
-	skipChars int
-	count bool
-	repeated bool
-	unique bool
+	skipChars  int
+	count      bool
+	repeated   bool
+	unique     bool
 	ignoreCase bool
 }
 

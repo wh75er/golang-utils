@@ -11,14 +11,11 @@ func WriteInput(data []string, opts args.IoOptions) error {
 	outStream := os.Stdout
 
 	if opts.OutFilename != "" {
-		f, e := os.OpenFile(opts.OutFilename, os.O_CREATE | os.O_WRONLY | os.O_TRUNC, os.FileMode(0644))
-
+		f, e := os.OpenFile(opts.OutFilename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, os.FileMode(0644))
 		if e != nil {
 			return e
 		}
-
 		defer f.Close()
-
 
 		outStream = f
 	}

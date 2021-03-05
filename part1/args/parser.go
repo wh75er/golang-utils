@@ -1,38 +1,43 @@
 package args
 
 import (
-	"flag"
 	"errors"
+	"flag"
 )
 
 type IoOptions struct {
-	InFilename string
+	InFilename  string
 	OutFilename string
 }
 
 func ParseArgs() (Options, IoOptions, error) {
 	var e error = nil
 
-	count := flag.Bool("c", false, "prefix lines by the number of occurrences")
-
-	repeated := flag.Bool("d", false, "only print duplicate lines, one for each group")
-
-	unique := flag.Bool("u", false, "only print unique lines")
-
-	skipFields := flag.Int("f", 0, "avoid comparing the first N fields")
-
-	skipChars := flag.Int("s", 0, "avoid comparing the first N characters")
-
-	ignoreCase := flag.Bool("i", false, "ignore differences in case when comparing")
+	var (
+		count = flag.Bool("c", false, "prefix lines by the number of occurrences")
+		repeated = flag.Bool("d", false, "only print duplicate lines, one for each group")
+		unique = flag.Bool("u", false, "only print unique lines")
+		skipFields = flag.Int("f", 0, "avoid comparing the first N fields")
+		skipChars = flag.Int("s", 0, "avoid comparing the first N characters")
+		ignoreCase = flag.Bool("i", false, "ignore differences in case when comparing")
+	)
 
 	flag.Parse()
 
 	builder := NewOptions()
 
-	if *count { builder.Count() }
-	if *repeated { builder.Repeated() }
-	if *unique { builder.Unique() }
-	if *ignoreCase { builder.IgnoreCase() }
+	if *count {
+		builder.Count()
+	}
+	if *repeated {
+		builder.Repeated()
+	}
+	if *unique {
+		builder.Unique()
+	}
+	if *ignoreCase {
+		builder.IgnoreCase()
+	}
 	builder.SkipFields(*skipFields)
 	builder.SkipChars(*skipChars)
 
