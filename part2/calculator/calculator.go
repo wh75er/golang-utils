@@ -48,31 +48,31 @@ func getBracketInfo(c int32) byte {
 	return notBracket
 }
 
-func handleOperator(c int32, st *IStack, pn *[]string) {
-	if (*st).Length() == 0 {
-		(*st).Push(c)
+func handleOperator(c int32, st IStack, pn *[]string) {
+	if st.Length() == 0 {
+		st.Push(c)
 	} else {
-		h := (*st).Top()
+		h := st.Top()
 
 		opPriority := getOpPriority()
 
 		if opPriority[h.(int32)] >= opPriority[c] {
 			*pn = append(*pn, string(h.(int32)))
-			(*st).Pop()
+			st.Pop()
 		}
 
-		(*st).Push(c)
+		st.Push(c)
 	}
 }
 
-func handleRightBracket(st *IStack, pn []string) ([]string, error) {
+func handleRightBracket(st IStack, pn []string) ([]string, error) {
 	for {
-		if (*st).Length() == 0 {
+		if st.Length() == 0 {
 			return pn, errors.New("left bracket not found")
 		}
 
-		h := (*st).Top()
-		(*st).Pop()
+		h := st.Top()
+		st.Pop()
 
 		if getBracketInfo(h.(int32)) == lBracket {
 			break
@@ -84,7 +84,7 @@ func handleRightBracket(st *IStack, pn []string) ([]string, error) {
 	return pn, nil
 }
 
-func handleBracketOrOperator(c int32, num *string, st *IStack, pn []string) ([]string, error) {
+func handleBracketOrOperator(c int32, num *string, st IStack, pn []string) ([]string, error) {
 	if len(*num) != 0 {
 		pn = append(pn, *num)
 
@@ -95,7 +95,7 @@ func handleBracketOrOperator(c int32, num *string, st *IStack, pn []string) ([]s
 	case isOperator(c):
 		handleOperator(c, st, &pn)
 	case getBracketInfo(c) == lBracket:
-		(*st).Push(c)
+		st.Push(c)
 	case getBracketInfo(c) == rBracket:
 		var e error
 		pn, e = handleRightBracket(st, pn)
@@ -107,36 +107,36 @@ func handleBracketOrOperator(c int32, num *string, st *IStack, pn []string) ([]s
 	return pn, nil
 }
 
-func unwrapStack(num *string, st *IStack, pn []string) []string {
+func unwrapStack(num *string, st IStack, pn []string) []string {
 	if len(*num) != 0 {
 		pn = append(pn, *num)
 	}
 
 	for {
-		if (*st).Length() == 0 {
+		if st.Length() == 0 {
 			break
 		}
 
-		h := (*st).Top()
+		h := st.Top()
 
 		pn = append(pn, string(h.(int32)))
 
-		(*st).Pop()
+		st.Pop()
 	}
 
 	return pn
 }
 
-func evaluateWithOperator(c int32, arg1 float64, arg2 float64, st *IStack) error {
+func evaluateWithOperator(c int32, arg1 float64, arg2 float64, st IStack) error {
 	switch c {
 	case '+':
-		(*st).Push(arg1 + arg2)
+		st.Push(arg1 + arg2)
 	case '-':
-		(*st).Push(arg1 - arg2)
+		st.Push(arg1 - arg2)
 	case '/':
-		(*st).Push(arg1 / arg2)
+		st.Push(arg1 / arg2)
 	case '*':
-		(*st).Push(arg1 * arg2)
+		st.Push(arg1 * arg2)
 	default:
 		return errors.New("unknown operator")
 	}
@@ -144,7 +144,7 @@ func evaluateWithOperator(c int32, arg1 float64, arg2 float64, st *IStack) error
 	return nil
 }
 
-func extractArguments(st *IStack) (arg1 float64, arg2 float64, e error) {
+func extractArguments(st IStack) (arg1 float64, arg2 float64, e error) {
 	arg2, e = getStackValue(st)
 	if e != nil {
 		return
@@ -177,12 +177,12 @@ func getPolishNotation(s string) ([]string, error) {
 			num += string(c)
 		case getBracketInfo(c) != notBracket || isOperator(c):
 			var e error
-			pn, e = handleBracketOrOperator(c, &num, &stack, pn)
+			pn, e = handleBracketOrOperator(c, &num, stack, pn)
 			if e != nil {
 				return pn, e
 			}
 		case c == '\n':
-			pn = unwrapStack(&num, &stack, pn)
+			pn = unwrapStack(&num, stack, pn)
 		default:
 			return pn, errors.New("invalid character")
 		}
@@ -191,13 +191,13 @@ func getPolishNotation(s string) ([]string, error) {
 	return pn, nil
 }
 
-func getStackValue(st *IStack) (v float64, e error) {
-	if (*st).Length() == 0 {
+func getStackValue(st IStack) (v float64, e error) {
+	if st.Length() == 0 {
 		return 0, errors.New("invalid order of operations")
 	}
 
-	v = (*st).Top().(float64)
-	(*st).Pop()
+	v = st.Top().(float64)
+	st.Pop()
 
 	return
 }
@@ -223,11 +223,11 @@ func Calculate(s string) (float64, error) {
 			}
 			stack.Push(float64(num))
 		case isOperator(c):
-			arg1, arg2, e := extractArguments(&stack)
+			arg1, arg2, e := extractArguments(stack)
 			if e != nil {
 				return result, e
 			}
-			e = evaluateWithOperator(c, arg1, arg2, &stack)
+			e = evaluateWithOperator(c, arg1, arg2, stack)
 			if e != nil {
 				return result, e
 			}
