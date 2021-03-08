@@ -13,7 +13,7 @@ const (
 )
 
 func getOpPriority() map[int32]byte {
-	return map[int32]byte {
+	return map[int32]byte{
 		'+': 1,
 		'-': 1,
 		'*': 2,
@@ -37,7 +37,7 @@ func isNumber(c int32) bool {
 	return false
 }
 
-func getBracketInfo(c int32) byte{
+func getBracketInfo(c int32) byte {
 	switch c {
 	case '(':
 		return lBracket

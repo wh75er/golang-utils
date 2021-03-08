@@ -2,11 +2,11 @@ package iop
 
 import (
 	"bufio"
-	"io"
 	"errors"
+	"io"
 )
 
-func ReadInput(in io.Reader) (string, error){
+func ReadInput(in io.Reader) (string, error) {
 	r := bufio.NewReader(in)
 
 	s, e := r.ReadString('\n')

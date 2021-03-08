@@ -23,11 +23,11 @@ func (st *Stack) Top() interface{} {
 	if len(st.data) == 0 {
 		return -1
 	}
-	return st.data[len(st.data) - 1]
+	return st.data[len(st.data)-1]
 }
 
 func (st *Stack) Pop() {
-	st.data = st.data[:len(st.data) - 1]
+	st.data = st.data[:len(st.data)-1]
 }
 
 func (st Stack) Length() int {
