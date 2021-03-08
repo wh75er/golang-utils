@@ -14,11 +14,11 @@ func ParseArgs() (Options, IoOptions, error) {
 	var e error = nil
 
 	var (
-		count = flag.Bool("c", false, "prefix lines by the number of occurrences")
-		repeated = flag.Bool("d", false, "only print duplicate lines, one for each group")
-		unique = flag.Bool("u", false, "only print unique lines")
+		count      = flag.Bool("c", false, "prefix lines by the number of occurrences")
+		repeated   = flag.Bool("d", false, "only print duplicate lines, one for each group")
+		unique     = flag.Bool("u", false, "only print unique lines")
 		skipFields = flag.Int("f", 0, "avoid comparing the first N fields")
-		skipChars = flag.Int("s", 0, "avoid comparing the first N characters")
+		skipChars  = flag.Int("s", 0, "avoid comparing the first N characters")
 		ignoreCase = flag.Bool("i", false, "ignore differences in case when comparing")
 	)
 
